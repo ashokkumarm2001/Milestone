@@ -1,0 +1,665 @@
+
+test> use Milestone
+switched to db Milestone
+Please enter a MongoDB connection string (Default: mongodb://localhosMilestone> show dbs
+Task_1  184.00 KiB
+Task_2   72.00 KiB
+admin    40.00 KiB
+config   60.00 KiB
+local    72.00 KiB
+Milestone> db.createCollection("book_store")
+{ ok: 1 }
+Milestone> db.book_store.renameCollection("Bookstore")
+{ ok: 1 }
+Milestone> db.Bookstore.insert([{book_id:1001,B_title:"One Indian Girl",authors:["Chetan Bhagat"],price:2100},{book_id:1002,B_title:"Naked Triangle",authors:["Balwant Gargi"],price:3500}])
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('656427bc374d0793f11da433'),
+    '1': ObjectId('656427bc374d0793f11da434')
+  }
+}
+Milestone> db.Bookstore.insert([{book_id:1003,B_title:"Half Girlfriend",authors:["Chetan Bhagat"],price:1000},{book_id:1004,B_title:"A Million Muntinies Now",authors:["V.S.Naipaul"],price:1400},{book_id:1005,B_title:"Revolition 2020",authors:["Chetan Bhagat"],price:800},{book_id:1006,B_title:"A Brush with Life",authors:["V.S.Naipaul"],price:4000}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('65642959374d0793f11da435'),
+    '1': ObjectId('65642959374d0793f11da436'),
+    '2': ObjectId('65642959374d0793f11da437'),
+    '3': ObjectId('65642959374d0793f11da438')
+  }
+}
+Milestone> db.Bookstore.insert([{book_id:1007,B_title:"Conquest of Self",authors:["Mahatma Gandhi"],price:3700},{book_id:1008,B_title:"By God's Decree",authors:["V.S.Naipaul"],price:2500},{book_id:1009,B_title:"Cheeman",authors:["Kapil Dev"],price:1800},{book_id:1010,B_title:"Chitra",authors:["Preeti Singh"],price:5200}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('65642a83374d0793f11da439'),
+    '1': ObjectId('65642a83374d0793f11da43a'),
+    '2': ObjectId('65642a83374d0793f11da43b'),
+    '3': ObjectId('65642a83374d0793f11da43c')
+  }
+}
+Milestone> db.Bookstore.find().pretty()
+[
+  {
+    _id: ObjectId('656427bc374d0793f11da433'),
+    book_id: 1001,
+    B_title: 'One Indian Girl',
+    authors: [ 'Chetan Bhagat' ],
+    price: 2100
+  },
+  {
+    _id: ObjectId('656427bc374d0793f11da434'),
+    book_id: 1002,
+    B_title: 'Naked Triangle',
+    authors: [ 'Balwant Gargi' ],
+    price: 3500
+  },
+  {
+    _id: ObjectId('65642959374d0793f11da435'),
+    book_id: 1003,
+    B_title: 'Half Girlfriend',
+    authors: [ 'Chetan Bhagat' ],
+    price: 1000
+  },
+  {
+    _id: ObjectId('65642959374d0793f11da436'),
+    book_id: 1004,
+    B_title: 'A Million Muntinies Now',
+    authors: [ 'V.S.Naipaul' ],
+    price: 1400
+  },
+  {
+    _id: ObjectId('65642959374d0793f11da437'),
+    book_id: 1005,
+    B_title: 'Revolition 2020',
+    authors: [ 'Chetan Bhagat' ],
+    price: 800
+  },
+  {
+    _id: ObjectId('65642959374d0793f11da438'),
+    book_id: 1006,
+    B_title: 'A Brush with Life',
+    authors: [ 'V.S.Naipaul' ],
+    price: 4000
+  },
+  {
+    _id: ObjectId('65642a83374d0793f11da439'),
+    book_id: 1007,
+    B_title: 'Conquest of Self',
+    authors: [ 'Mahatma Gandhi' ],
+    price: 3700
+  },
+  {
+    _id: ObjectId('65642a83374d0793f11da43a'),
+    book_id: 1008,
+    B_title: "By God's Decree",
+    authors: [ 'V.S.Naipaul' ],
+    price: 2500
+  },
+  {
+    _id: ObjectId('65642a83374d0793f11da43b'),
+    book_id: 1009,
+    B_title: 'Cheeman',
+    authors: [ 'Kapil Dev' ],
+    price: 1800
+  },
+  {
+    _id: ObjectId('65642a83374d0793f11da43c'),
+    book_id: 1010,
+    B_title: 'Chitra',
+    authors: [ 'Preeti Singh' ],
+    price: 5200
+  }
+]
+Milestone> db.Bookstore.find({},{_id:0,B_title:1,authors:1,price:1)
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:55)
+
+> 1 | db.Bookstore.find({},{_id:0,B_title:1,authors:1,price:1)
+    |                                                        ^
+  2 |
+
+Milestone> db.Bookstore.find({},{_id:0,B_title:1,authors:1,price:1})
+[
+  {
+    B_title: 'One Indian Girl',
+    authors: [ 'Chetan Bhagat' ],
+    price: 2100
+  },
+  {
+    B_title: 'Naked Triangle',
+    authors: [ 'Balwant Gargi' ],
+    price: 3500
+  },
+  {
+    B_title: 'Half Girlfriend',
+    authors: [ 'Chetan Bhagat' ],
+    price: 1000
+  },
+  {
+    B_title: 'A Million Muntinies Now',
+    authors: [ 'V.S.Naipaul' ],
+    price: 1400
+  },
+  {
+    B_title: 'Revolition 2020',
+    authors: [ 'Chetan Bhagat' ],
+    price: 800
+  },
+  {
+    B_title: 'A Brush with Life',
+    authors: [ 'V.S.Naipaul' ],
+    price: 4000
+  },
+  {
+    B_title: 'Conquest of Self',
+    authors: [ 'Mahatma Gandhi' ],
+    price: 3700
+  },
+  {
+    B_title: "By God's Decree",
+    authors: [ 'V.S.Naipaul' ],
+    price: 2500
+  },
+  { B_title: 'Cheeman', authors: [ 'Kapil Dev' ], price: 1800 },
+  { B_title: 'Chitra', authors: [ 'Preeti Singh' ], price: 5200 }
+]
+Milestone> db.Bookstore.find({authors:{$eq:"Chetan Bhagat"}},{_id:0,B_title:1})
+[
+  { B_title: 'One Indian Girl' },
+  { B_title: 'Half Girlfriend' },
+  { B_title: 'Revolition 2020' }
+]
+Milestone> db.Bookstore.find({authors:{$eq:"Chetan Bhagat"}},{_id:0,B_title:1}).limit(2)
+[ { B_title: 'One Indian Girl' }, { B_title: 'Half Girlfriend' } ]
+Milestone> db.Bookstore.find({price:{$gt:1500}},{_id:0})
+[
+  {
+    book_id: 1001,
+    B_title: 'One Indian Girl',
+    authors: [ 'Chetan Bhagat' ],
+    price: 2100
+  },
+  {
+    book_id: 1002,
+    B_title: 'Naked Triangle',
+    authors: [ 'Balwant Gargi' ],
+    price: 3500
+  },
+  {
+    book_id: 1006,
+    B_title: 'A Brush with Life',
+    authors: [ 'V.S.Naipaul' ],
+    price: 4000
+  },
+  {
+    book_id: 1007,
+    B_title: 'Conquest of Self',
+    authors: [ 'Mahatma Gandhi' ],
+    price: 3700
+  },
+  {
+    book_id: 1008,
+    B_title: "By God's Decree",
+    authors: [ 'V.S.Naipaul' ],
+    price: 2500
+  },
+  {
+    book_id: 1009,
+    B_title: 'Cheeman',
+    authors: [ 'Kapil Dev' ],
+    price: 1800
+  },
+  {
+    book_id: 1010,
+    B_title: 'Chitra',
+    authors: [ 'Preeti Singh' ],
+    price: 5200
+  }
+]
+Milestone> db.Bookstore.find({price:{$and:[{$gt:800},{$lt:2000}]}},{_id:0})
+MongoServerError: unknown operator: $and
+Milestone> db.Bookstore.find({$and:[{price:{$gt:800}},{price:{$lt:2000}}]},{_id:0})
+[
+  {
+    book_id: 1003,
+    B_title: 'Half Girlfriend',
+    authors: [ 'Chetan Bhagat' ],
+    price: 1000
+  },
+  {
+    book_id: 1004,
+    B_title: 'A Million Muntinies Now',
+    authors: [ 'V.S.Naipaul' ],
+    price: 1400
+  },
+  {
+    book_id: 1009,
+    B_title: 'Cheeman',
+    authors: [ 'Kapil Dev' ],
+    price: 1800
+  }
+]
+Milestone> db.Bookstore.find({},{_id:0}).sort({book_id:1})
+[
+  {
+    book_id: 1001,
+    B_title: 'One Indian Girl',
+    authors: [ 'Chetan Bhagat' ],
+    price: 2100
+  },
+  {
+    book_id: 1002,
+    B_title: 'Naked Triangle',
+    authors: [ 'Balwant Gargi' ],
+    price: 3500
+  },
+  {
+    book_id: 1003,
+    B_title: 'Half Girlfriend',
+    authors: [ 'Chetan Bhagat' ],
+    price: 1000
+  },
+  {
+    book_id: 1004,
+    B_title: 'A Million Muntinies Now',
+    authors: [ 'V.S.Naipaul' ],
+    price: 1400
+  },
+  {
+    book_id: 1005,
+    B_title: 'Revolition 2020',
+    authors: [ 'Chetan Bhagat' ],
+    price: 800
+  },
+  {
+    book_id: 1006,
+    B_title: 'A Brush with Life',
+    authors: [ 'V.S.Naipaul' ],
+    price: 4000
+  },
+  {
+    book_id: 1007,
+    B_title: 'Conquest of Self',
+    authors: [ 'Mahatma Gandhi' ],
+    price: 3700
+  },
+  {
+    book_id: 1008,
+    B_title: "By God's Decree",
+    authors: [ 'V.S.Naipaul' ],
+    price: 2500
+  },
+  {
+    book_id: 1009,
+    B_title: 'Cheeman',
+    authors: [ 'Kapil Dev' ],
+    price: 1800
+  },
+  {
+    book_id: 1010,
+    B_title: 'Chitra',
+    authors: [ 'Preeti Singh' ],
+    price: 5200
+  }
+]
+Milestone> db.Bookstore.find({},{_id:0}).sort({B_title:1})
+[
+  {
+    book_id: 1006,
+    B_title: 'A Brush with Life',
+    authors: [ 'V.S.Naipaul' ],
+    price: 4000
+  },
+  {
+    book_id: 1004,
+    B_title: 'A Million Muntinies Now',
+    authors: [ 'V.S.Naipaul' ],
+    price: 1400
+  },
+  {
+    book_id: 1008,
+    B_title: "By God's Decree",
+    authors: [ 'V.S.Naipaul' ],
+    price: 2500
+  },
+  {
+    book_id: 1009,
+    B_title: 'Cheeman',
+    authors: [ 'Kapil Dev' ],
+    price: 1800
+  },
+  {
+    book_id: 1010,
+    B_title: 'Chitra',
+    authors: [ 'Preeti Singh' ],
+    price: 5200
+  },
+  {
+    book_id: 1007,
+    B_title: 'Conquest of Self',
+    authors: [ 'Mahatma Gandhi' ],
+    price: 3700
+  },
+  {
+    book_id: 1003,
+    B_title: 'Half Girlfriend',
+    authors: [ 'Chetan Bhagat' ],
+    price: 1000
+  },
+  {
+    book_id: 1002,
+    B_title: 'Naked Triangle',
+    authors: [ 'Balwant Gargi' ],
+    price: 3500
+  },
+  {
+    book_id: 1001,
+    B_title: 'One Indian Girl',
+    authors: [ 'Chetan Bhagat' ],
+    price: 2100
+  },
+  {
+    book_id: 1005,
+    B_title: 'Revolition 2020',
+    authors: [ 'Chetan Bhagat' ],
+    price: 800
+  }
+]
+Milestone> db.Bookstore.find({authors:"Abcd"},{_id:0})
+
+Milestone> db.Bookstore.find({authors:"Abcd"})
+
+Milestone> db.Bookstore.find({authors:"Kapil Dev"})
+[
+  {
+    _id: ObjectId('65642a83374d0793f11da43b'),
+    book_id: 1009,
+    B_title: 'Cheeman',
+    authors: [ 'Kapil Dev' ],
+    price: 1800
+  }
+]
+Milestone> db.Bookstore.updateMany({B_title:"Chemaan"},{$inc:{price:500}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+Milestone> db.Bookstore.find()
+[
+  {
+    _id: ObjectId('656427bc374d0793f11da433'),
+    book_id: 1001,
+    B_title: 'One Indian Girl',
+    authors: [ 'Chetan Bhagat' ],
+    price: 2100
+  },
+  {
+    _id: ObjectId('656427bc374d0793f11da434'),
+    book_id: 1002,
+    B_title: 'Naked Triangle',
+    authors: [ 'Balwant Gargi' ],
+    price: 3500
+  },
+  {
+    _id: ObjectId('65642959374d0793f11da435'),
+    book_id: 1003,
+    B_title: 'Half Girlfriend',
+    authors: [ 'Chetan Bhagat' ],
+    price: 1000
+  },
+  {
+    _id: ObjectId('65642959374d0793f11da436'),
+    book_id: 1004,
+    B_title: 'A Million Muntinies Now',
+    authors: [ 'V.S.Naipaul' ],
+    price: 1400
+  },
+  {
+    _id: ObjectId('65642959374d0793f11da437'),
+    book_id: 1005,
+    B_title: 'Revolition 2020',
+    authors: [ 'Chetan Bhagat' ],
+    price: 800
+  },
+  {
+    _id: ObjectId('65642959374d0793f11da438'),
+    book_id: 1006,
+    B_title: 'A Brush with Life',
+    authors: [ 'V.S.Naipaul' ],
+    price: 4000
+  },
+  {
+    _id: ObjectId('65642a83374d0793f11da439'),
+    book_id: 1007,
+    B_title: 'Conquest of Self',
+    authors: [ 'Mahatma Gandhi' ],
+    price: 3700
+  },
+  {
+    _id: ObjectId('65642a83374d0793f11da43a'),
+    book_id: 1008,
+    B_title: "By God's Decree",
+    authors: [ 'V.S.Naipaul' ],
+    price: 2500
+  },
+  {
+    _id: ObjectId('65642a83374d0793f11da43b'),
+    book_id: 1009,
+    B_title: 'Cheeman',
+    authors: [ 'Kapil Dev' ],
+    price: 1800
+  },
+  {
+    _id: ObjectId('65642a83374d0793f11da43c'),
+    book_id: 1010,
+    B_title: 'Chitra',
+    authors: [ 'Preeti Singh' ],
+    price: 5200
+  }
+]
+Milestone> db.Bookstore.updateMany({B_title:"Cheeman"},{$inc:{price:500}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+Milestone> db.Bookstore.find()
+[
+  {
+    _id: ObjectId('656427bc374d0793f11da433'),
+    book_id: 1001,
+    B_title: 'One Indian Girl',
+    authors: [ 'Chetan Bhagat' ],
+    price: 2100
+  },
+  {
+    _id: ObjectId('656427bc374d0793f11da434'),
+    book_id: 1002,
+    B_title: 'Naked Triangle',
+    authors: [ 'Balwant Gargi' ],
+    price: 3500
+  },
+  {
+    _id: ObjectId('65642959374d0793f11da435'),
+    book_id: 1003,
+    B_title: 'Half Girlfriend',
+    authors: [ 'Chetan Bhagat' ],
+    price: 1000
+  },
+  {
+    _id: ObjectId('65642959374d0793f11da436'),
+    book_id: 1004,
+    B_title: 'A Million Muntinies Now',
+    authors: [ 'V.S.Naipaul' ],
+    price: 1400
+  },
+  {
+    _id: ObjectId('65642959374d0793f11da437'),
+    book_id: 1005,
+    B_title: 'Revolition 2020',
+    authors: [ 'Chetan Bhagat' ],
+    price: 800
+  },
+  {
+    _id: ObjectId('65642959374d0793f11da438'),
+    book_id: 1006,
+    B_title: 'A Brush with Life',
+    authors: [ 'V.S.Naipaul' ],
+    price: 4000
+  },
+  {
+    _id: ObjectId('65642a83374d0793f11da439'),
+    book_id: 1007,
+    B_title: 'Conquest of Self',
+    authors: [ 'Mahatma Gandhi' ],
+    price: 3700
+  },
+  {
+    _id: ObjectId('65642a83374d0793f11da43a'),
+    book_id: 1008,
+    B_title: "By God's Decree",
+    authors: [ 'V.S.Naipaul' ],
+    price: 2500
+  },
+  {
+    _id: ObjectId('65642a83374d0793f11da43b'),
+    book_id: 1009,
+    B_title: 'Cheeman',
+    authors: [ 'Kapil Dev' ],
+    price: 2300
+  },
+  {
+    _id: ObjectId('65642a83374d0793f11da43c'),
+    book_id: 1010,
+    B_title: 'Chitra',
+    authors: [ 'Preeti Singh' ],
+    price: 5200
+  }
+Milestone> db.Bookstore.update({B_title:"A Million Muntinies Now"},{
+... $set:
+... )
+Uncaught:
+SyntaxError: Unexpected token (3:0)
+
+  1 | db.Bookstore.update({B_title:"A Million Muntinies Now"},{
+  2 | $set:
+> 3 | )
+    | ^
+  4 |
+
+Milestone> db.Bookstore.update({B_title:"A Million Muntinies Now"},{$set:{price:2000}} )
+DeprecationWarning: Collection.update() is deprecated. Use updateOne, updateMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+Milestone> db.Bookstore.update({B_title:"A Million Muntinies Now"},{$push:{price:2000}} )
+MongoServerError: The field 'price' must be an array but is of type int in document {_id: ObjectId('65642959374d0793f11da436')}
+Milestone> db.Bookstore.update({B_title:"A Million Muntinies Now"},{$push:{authors:"Ashok"}} )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+Milestone> db.Bookstore.update({B_title:"A Million Muntinies Now"},{$pull:{authors:"V.S.Naipaul"}} )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+Milestone> db.Bookstore.update({B_title:"A Million Muntinies Now"},{$setOnInsert:{book_id:1100}},{upsert:true} )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+Milestone> db.Bookstore.find().pretty()
+[
+  {
+    _id: ObjectId('656427bc374d0793f11da433'),
+    book_id: 1001,
+    B_title: 'One Indian Girl',
+    authors: [ 'Chetan Bhagat' ],
+    price: 2100
+  },
+  {
+    _id: ObjectId('656427bc374d0793f11da434'),
+    book_id: 1002,
+    B_title: 'Naked Triangle',
+    authors: [ 'Balwant Gargi' ],
+    price: 3500
+  },
+  {
+    _id: ObjectId('65642959374d0793f11da435'),
+    book_id: 1003,
+    B_title: 'Half Girlfriend',
+    authors: [ 'Chetan Bhagat' ],
+    price: 1000
+  },
+  {
+    _id: ObjectId('65642959374d0793f11da436'),
+    book_id: 1004,
+    B_title: 'A Million Muntinies Now',
+    authors: [ 'Ashok' ],
+    price: 2000
+  },
+  {
+    _id: ObjectId('65642959374d0793f11da437'),
+    book_id: 1005,
+    B_title: 'Revolition 2020',
+    authors: [ 'Chetan Bhagat' ],
+    price: 800
+  },
+  {
+    _id: ObjectId('65642959374d0793f11da438'),
+    book_id: 1006,
+    B_title: 'A Brush with Life',
+    authors: [ 'V.S.Naipaul' ],
+    price: 4000
+  },
+  {
+    _id: ObjectId('65642a83374d0793f11da439'),
+    book_id: 1007,
+    B_title: 'Conquest of Self',
+    authors: [ 'Mahatma Gandhi' ],
+    price: 3700
+  },
+  {
+    _id: ObjectId('65642a83374d0793f11da43a'),
+    book_id: 1008,
+    B_title: "By God's Decree",
+    authors: [ 'V.S.Naipaul' ],
+    price: 2500
+  },
+  {
+    _id: ObjectId('65642a83374d0793f11da43b'),
+    book_id: 1009,
+    B_title: 'Cheeman',
+    authors: [ 'Kapil Dev' ],
+    price: 2300
+  },
+  {
+    _id: ObjectId('65642a83374d0793f11da43c'),
+    book_id: 1010,
+    B_title: 'Chitra',
+    authors: [ 'Preeti Singh' ],
+    price: 5200
+  }
+]
